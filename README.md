@@ -20,7 +20,7 @@ walletsdk.maven.password=given-by-aag
 
 # setting up SDK environment
 sdk.realm=given-by-aag
-sdk.environment=test (test (testnet),stage(mainnet),prod(mainnet))
+sdk.environment=test (test(testnet),stage(mainnet),prod(mainnet))
 sdk.api.client.reference=given-by-aag
 sdk.config.url=given-by-aag
 sdk.key=given-by-aag
