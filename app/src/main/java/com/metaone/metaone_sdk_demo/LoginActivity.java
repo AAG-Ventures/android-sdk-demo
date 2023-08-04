@@ -118,8 +118,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void SSOLogIn(String token) {
-        AuthApiModel.SSOLoginRequest ssoLoginRequest = new AuthApiModel.SSOLoginRequest(BuildConfig.SDK_REALM, token);
-        metaOneSDKManager.login(ssoLoginRequest, this, new M1EnqueueCallback<>() {
+        metaOneSDKManager.login(token, this, new M1EnqueueCallback<>() {
             @Override
             public void onSuccess(AuthApiModel.AuthResponse response) {
                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
