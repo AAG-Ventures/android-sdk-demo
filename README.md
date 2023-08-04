@@ -25,21 +25,15 @@ sdk.api.client.reference=given-by-aag
 sdk.config.url=given-by-aag
 sdk.key=given-by-aag
 ```
-```groovy
-buildscript {
-    repositories {
-        maven { url properties.getProperty('walletsdk.maven.url') }
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
-    }
-}
 
-allprojects {
-    repositories {
-        maven { url properties.getProperty('walletsdk.maven.url') }
-    }
-}
+Add following code to your build.gradle file:
+```groovy
+`url properties.getProperty('walletsdk.maven.url')
+credentials {
+   username = properties.getProperty('walletsdk.maven.username')
+   password = properties.getProperty('walletsdk.maven.password')
+}`
+
 ```
 
 Add the following code to your `app/build.gradle` file:
