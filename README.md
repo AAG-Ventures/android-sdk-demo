@@ -44,7 +44,7 @@ implementation 'io.github.aag-ventures:MetaOneSDK:1.4.8'
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
 ```groovy
 dependencies {
-	// M1 SDK auth realm
+// M1 SDK auth realm
 val sdkRealm = properties.getProperty("sdk.realm")
 buildConfigField("String", "SDK_REALM", "\"${sdkRealm}\"")
 // M1 SDK environment (dev, test, stage, prod)
@@ -59,8 +59,6 @@ buildConfigField("String", "SDK_CONFIG_URL", "\"${sdkConfigUrl}\"")
 // Client reference for API (provided by AAG)
 val sdkApiClientReference = properties.getProperty("sdk.api.client.reference") ?: ""
 buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${sdkApiClientReference}\"")
-
-buildConfigField("String", "SDK_VERSION", "\"${version}\"")
 }
 ```
 
