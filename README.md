@@ -17,6 +17,13 @@ Add the following configuration to your local properties file:
 walletsdk.maven.url=given-by-aag
 walletsdk.maven.username=given-by-aag
 walletsdk.maven.password=given-by-aag
+
+# setting up SDK environment
+sdk.realm=given-by-aag
+sdk.environment=given-by-aag
+sdk.api.client.reference=given-by-aag
+sdk.config.url=given-by-aag
+sdk.key=given-by-aag
 ```
 ```groovy
 buildscript {
