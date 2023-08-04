@@ -38,7 +38,7 @@ credentials {
 
 Add the following code to your `app/build.gradle` file:
 ```groovy
-implementation 'io.github.aag-ventures:MetaOneSDK:1.4.8'
+implementation 'io.github.aag-ventures:MetaOneSDK:1.4.9'
 ```
 
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
@@ -91,8 +91,7 @@ To successfully initialize a user session, your backend integration has to be re
 
 Initialize the session by calling:
 ```kotlin
-val ssoLoginRequest = AuthApiModel.SSOLoginRequest(BuildConfig.SDK_REALM, token)
-metaOneSDKManager.login(ssoLoginRequest, callback)
+metaOneSDKManager.login(token, callback)
 ```
 
 Your session is initialized. You can now use all other functions that require Authorization.
