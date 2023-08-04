@@ -1,5 +1,3 @@
-Sure, here's the formatted README.md content:
-
 # MetaOne Wallet SDK Integration Guide
 
 This guide will walk you through integrating the MetaOne wallet into your Android app. Provide your users with a secure and convenient way to manage their digital assets with MetaOne Wallet. It is a custody wallet that eliminates the need for private keys, passphrases, or hardware wallets.
