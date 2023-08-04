@@ -1,0 +1,88 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    compileSdk 33
+
+    repositories {
+        mavenCentral()
+    }
+
+    defaultConfig {
+        applicationId "com.metaone.metaone_sdk_demo"
+        minSdk 25
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        // M1 SDK auth realm
+        buildConfigField("String", "SDK_REALM", "\"${properties["sdk.realm"]}\"")
+        // M1 SDK environment (dev, test, stage, prod)
+        buildConfigField("String", "SDK_ENVIRONMENT", "\"${properties["sdk.environment"]}\"")
+        // Wallet SDK Key (provided by AAG)
+        buildConfigField("String", "SDK_KEY", "\"${properties["sdk.key"]}\"")
+        // Wallet config url (provided by AAG)
+        buildConfigField("String", "SDK_CONFIG_URL", "\"${properties["sdk.config.url"]}\"")
+        // Client reference for API (provided by AAG)
+        buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${properties["sdk.api.client.reference"]}\"")
+
+        buildConfigField("String", "SDK_VERSION", "\"${version}\"")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
+    }
+
+    signingConfigs {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+
+        release {
+            storeFile file('release.keystore')
+            storePassword properties.getProperty('signing_storePassword')
+            keyAlias properties.getProperty('signing_keyAlias')
+            keyPassword properties.getProperty('signing_keyPassword')
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'io.github.aag-ventures:MetaOneSDK:1.4.8'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.implementation
+    into 'libs'
+}

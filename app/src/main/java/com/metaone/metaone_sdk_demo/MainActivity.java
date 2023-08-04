@@ -1,0 +1,185 @@
+package com.metaone.metaone_sdk_demo;
+
+import static ventures.aag.metaonesdk.helpers.IntervalKt.currentTimeUnix;
+
+import androidx.annotation.NonNull;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.metaone.metaone_sdk_demo.components.base.BaseActivity;
+
+import ventures.aag.metaonesdk.models.ErrorResponse;
+import ventures.aag.metaonesdk.models.M1EnqueueCallback;
+import ventures.aag.metaonesdk.managers.MetaOneSDKManager;
+import ventures.aag.metaonesdk.managers.OnTokenExpirationListener;
+import ventures.aag.metaonesdk.models.SDKConfig;
+import ventures.aag.metaonesdk.models.SessionActivityStatus;
+
+public class MainActivity extends BaseActivity {
+    private MetaOneSDKManager metaOneSDKManager;
+
+    private LinearLayout unauthorizedLayout;
+    private Button loginButton;
+
+    private LinearLayout authorizedLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        metaOneSDKManager = new MetaOneSDKManager(this);
+        setContentView(R.layout.activity_main);
+        addButtonActions();
+        initializeSDK();
+    }
+
+    private void initializeSDK() {
+        SDKConfig sdkConfig = new SDKConfig(BuildConfig.SDK_REALM, BuildConfig.SDK_ENVIRONMENT, BuildConfig.SDK_KEY, BuildConfig.SDK_CONFIG_URL, BuildConfig.SDK_API_CLIENT_REFERENCE);
+        metaOneSDKManager.initialize(sdkConfig,
+                new M1EnqueueCallback<>() {
+                    @Override
+                    public void onSuccess(Boolean result) {
+                        super.onSuccess(result);
+                        startSessionTracker();
+                    }
+
+                    @Override
+                    public void onFailure(String string) {
+                        super.onFailure(string);
+                        Toast.makeText(MainActivity.this, "SDK initializing failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(ErrorResponse t) {
+                        super.onError(t);
+                        Toast.makeText(MainActivity.this, "SDK initializing failed " + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+    }
+
+    private void startSessionTracker() {
+        metaOneSDKManager.setOnTokenExpirationListener(new OnTokenExpirationListener() {
+            @Override
+            public void onSessionActivityChange(@NonNull SessionActivityStatus status) {
+                Log.d("MetaOneSDK", "Session activity changed to " + status.toString());
+            }
+
+            @Override
+            public void onTokenCountdown(long secondsLeft) {
+                TextView countdown = findViewById(R.id.expires_at);
+                countdown.setText("Token expires in " + secondsLeft + " seconds");
+            }
+
+            @Override
+            public void onTokenExpiration() {
+                Log.d("MetaOneSDK", "Token expired");
+            }
+
+        });
+    }
+
+    private void addButtonActions() {
+        authorizedLayout = findViewById(R.id.authorized_layout);
+        loginButton = findViewById(R.id.login_button);
+        unauthorizedLayout = findViewById(R.id.unauthorized_wrapper);
+
+        loginButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+        Button openWalletButton = findViewById(R.id.open_wallet_btn);
+        openWalletButton.setOnClickListener(v -> {
+            MetaOneSDKManager metaOneSDKManager = new MetaOneSDKManager(MainActivity.this);
+            try {
+                metaOneSDKManager.openWallet();
+            } catch (Exception e) {
+                CharSequence text = e.getMessage();
+                Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        });
+
+        Button apiTestButton = findViewById(R.id.api_testing_btn);
+        apiTestButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ApiTestingActivity.class);
+            startActivity(intent);
+        });
+
+        Button refreshSession = findViewById(R.id.refresh_session_button);
+
+        refreshSession.setOnClickListener(v -> {
+            metaOneSDKManager.refreshSession(new M1EnqueueCallback<>() {
+                @Override
+                public void onSuccess(Boolean result) {
+                    super.onSuccess(result);
+                    Toast.makeText(MainActivity.this, "Session refreshed", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(String string) {
+                    super.onFailure(string);
+                    Toast.makeText(MainActivity.this, "Session refresh failed", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(ErrorResponse t) {
+                    super.onError(t);
+                    Toast.makeText(MainActivity.this, "Session refresh failed " + t.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        Button languageButton = findViewById(R.id.language);
+        languageButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ChangeLanguageActivity.class);
+            startActivity(intent);
+        });
+        Button themeButton = findViewById(R.id.theme);
+        themeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ChangeThemeActivity.class);
+            startActivity(intent);
+        });
+
+        Button logoutButton = findViewById(R.id.logout);
+        logoutButton.setOnClickListener(v -> {
+            metaOneSDKManager.logout();
+            onChangeIsAuthorized();
+        });
+    }
+
+    private void onChangeIsAuthorized() {
+        Boolean isAuthorized = metaOneSDKManager.getSessionActivityStatus() != SessionActivityStatus.UNAUTHORISED;
+        authorizedLayout.setVisibility(isAuthorized ? View.VISIBLE : View.GONE);
+        unauthorizedLayout.setVisibility(isAuthorized ? View.GONE : View.VISIBLE);
+        if (isAuthorized) {
+            Long expireAt = metaOneSDKManager.getExpireAt();
+            // Check if expires at is greater than current time
+            if (expireAt < currentTimeUnix() + 5) {
+                metaOneSDKManager.refreshSession(new M1EnqueueCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean result) {
+                        super.onSuccess(result);
+                        metaOneSDKManager.setupUserData(null);
+                    }
+                });
+            } else {
+                metaOneSDKManager.setupUserData(null);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onChangeIsAuthorized();
+    }
+}

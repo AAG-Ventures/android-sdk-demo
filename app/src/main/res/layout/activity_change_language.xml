@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/background"
+    android:orientation="vertical"
+    android:padding="@dimen/d24">
+
+    <Button
+        android:id="@+id/go_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go back" />
+
+    <TextView
+        style="@style/h2_sb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/d20"
+        android:gravity="center"
+        android:text="@string/base_lang"
+        android:textColor="?attr/black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/en_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="English" />
+
+            <Button
+                android:id="@+id/in_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Indonesian" />
+
+            <Button
+                android:id="@+id/fil_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filipino" />
+
+            <Button
+                android:id="@+id/vi_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vietnamese" />
+
+            <Button
+                android:id="@+id/zh_cn_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chinese simplified" />
+
+            <Button
+                android:id="@+id/zh_tw_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chinese traditional" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

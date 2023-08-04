@@ -1,0 +1,31 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20'
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral() // Add this repository if it's not present
+        maven { url 'https://www.jitpack.io' }
+        maven {
+             Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream()) // load local.properties
+
+            url properties.getProperty('walletsdk.maven.url')
+            credentials {
+                username = properties.getProperty('walletsdk.maven.username')
+                password = properties.getProperty('walletsdk.maven.password')
+            }
+        }
+    }
+}
