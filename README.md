@@ -91,7 +91,7 @@ To successfully initialize a user session, your backend integration has to be re
 
 Initialize the session by calling:
 ```kotlin
-metaOneSDKManager.login(token, callback)
+metaOneSDKManager.login(token, this, callback)
 ```
 
 Your session is initialized. You can now use all other functions that require Authorization.
@@ -115,7 +115,7 @@ Future feature (In progress) - custom transaction Signing manager (txFees, gasLi
 
 - `setupUserData(callback: M1EnqueueCallback<Pair<UserApiModel.GetProfileResponse?, UserState?>>? = null)`: Sets up the user data by fetching the user profile and user state. This function ensures that the user profile and user state are available for use. You can provide an optional callback to receive the user profile and user state once they are fetched.
 
-- `login(requestData: AuthApiModel.SSOLoginRequest, context: Context, callback: M1EnqueueCallback<AuthApiModel.AuthResponse>)`: Performs the login process by sending an authorization token. The provided callback will receive the login response.
+- `login(token: String, context: Context, callback: M1EnqueueCallback<AuthApiModel.AuthResponse>)`: Performs the login process by sending an authorization token. The provided callback will receive the login response.
 
 - `refreshSession(callback: M1EnqueueCallback<Boolean>? = null)`: Refreshes the user session to extend the session expiration time. If the session refresh is successful, the provided callback will receive a true value.
 
