@@ -43,18 +43,24 @@ implementation 'io.github.aag-ventures:MetaOneSDK:1.4.8'
 
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
 ```groovy
-android {
-    // ...
-    buildTypes {
-        release {
-            // ...
-            buildConfigField("String", "SDK_REALM", "\"${sdkRealm}\"")
-            buildConfigField("String", "SDK_ENVIRONMENT", "\"${sdkEnvironment}\"")
-            buildConfigField("String", "SDK_KEY", "\"${sdkKey}\"")
-            buildConfigField("String", "SDK_CONFIG_URL", "\"${sdkConfigUrl}\"")
-            buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${sdkApiClientReference}\"")
-        }
-    }
+dependencies {
+	// M1 SDK auth realm
+val sdkRealm = properties.getProperty("sdk.realm")
+buildConfigField("String", "SDK_REALM", "\"${sdkRealm}\"")
+// M1 SDK environment (dev, test, stage, prod)
+val sdkEnvironment = properties.getProperty("sdk.environment") ?: ""
+buildConfigField("String", "SDK_ENVIRONMENT", "\"${sdkEnvironment}\"")
+// Wallet SDK Key (provided by AAG)
+val sdkKey = properties.getProperty("sdk.key") ?: ""
+buildConfigField("String", "SDK_KEY", "\"${sdkKey}\"")
+// Wallet config url (provided by AAG)
+val sdkConfigUrl = properties.getProperty("sdk.config.url") ?: ""
+buildConfigField("String", "SDK_CONFIG_URL", "\"${sdkConfigUrl}\"")
+// Client reference for API (provided by AAG)
+val sdkApiClientReference = properties.getProperty("sdk.api.client.reference") ?: ""
+buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${sdkApiClientReference}\"")
+
+buildConfigField("String", "SDK_VERSION", "\"${version}\"")
 }
 ```
 
