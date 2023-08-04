@@ -28,11 +28,11 @@ sdk.key=given-by-aag
 
 Add following code to your build.gradle file:
 ```groovy
-`url properties.getProperty('walletsdk.maven.url')
+url properties.getProperty('walletsdk.maven.url')
 credentials {
    username = properties.getProperty('walletsdk.maven.username')
    password = properties.getProperty('walletsdk.maven.password')
-}`
+}
 
 ```
 
