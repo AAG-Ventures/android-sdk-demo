@@ -51,11 +51,24 @@
                 android:textColor="?attr/black"
                 android:textColorHint="?attr/black60" />
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login" />
+
+            <ProgressBar
+                android:id="@+id/loadingIndicator"
+                android:layout_width="@dimen/d32"
+                android:layout_height="@dimen/d32"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/confirm_block"

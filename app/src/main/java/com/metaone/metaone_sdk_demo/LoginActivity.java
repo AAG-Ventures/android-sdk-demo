@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ import ventures.aag.metaonesdk.models.api.AuthApiModel;
 
 public class LoginActivity extends BaseActivity {
     private ApiService apiService;
+    private ProgressBar loadingIndicator;
+    private Button loginButton;
 
     MetaOneSDKManager metaOneSDKManager;
 
@@ -44,6 +47,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         metaOneSDKManager = new MetaOneSDKManager(this);
         setContentView(R.layout.activity_login);
+        loadingIndicator = findViewById(R.id.loadingIndicator);
         TextView textView = findViewById(R.id.header_title);
         textView.setText("Login");
         preference = new PreferenceUtils(this);
@@ -66,7 +70,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void addButtonActions() {
-        Button loginButton = findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> handleLogin());
 
         Button goBack = findViewById(R.id.go_back);
@@ -74,9 +78,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void reset() {
-        Button loginButton = findViewById(R.id.login_button);
-        loginButton.setEnabled(true);
-
+        setLoading(false);
         Button confirm2faButton = findViewById(R.id.confirm_2fa_button);
         confirm2faButton.setEnabled(false);
     }
@@ -86,7 +88,18 @@ public class LoginActivity extends BaseActivity {
         toast.show();
     }
 
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
+            loginButton.setEnabled(false);
+            loadingIndicator.setVisibility(View.VISIBLE);
+        } else {
+            loginButton.setEnabled(true);
+            loadingIndicator.setVisibility(View.GONE);
+        }
+    }
+
     private void handleLogin() {
+        setLoading(true);
         TextInputEditText emailInput = findViewById(R.id.login_email_input);
         String email = String.valueOf(emailInput.getText());
 
@@ -121,6 +134,7 @@ public class LoginActivity extends BaseActivity {
         metaOneSDKManager.login(token, this, new M1EnqueueCallback<>() {
             @Override
             public void onSuccess(AuthApiModel.AuthResponse response) {
+                setLoading(false);
                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                 finish();
             }
