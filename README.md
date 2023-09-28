@@ -19,47 +19,67 @@ walletsdk.maven.username=given-by-aag
 walletsdk.maven.password=given-by-aag
 
 # setting up SDK environment
-sdk.realm=given-by-aag
 sdk.environment=test (test(testnet),stage(mainnet),prod(mainnet))
 sdk.api.client.reference=given-by-aag
-sdk.config.url=given-by-aag
+sdk.api.key.phrase=given-by-client(Key Phrase for API)
+sdk.config.url=given-by-client
 sdk.key=given-by-aag
+sdk.realm=given-by-aag
+sdk.mainnet=given-by-client (specify mainnet or testnet as true or false)
+
 ```
 
 Add following code to your build.gradle file:
 ```groovy
-url properties.getProperty('walletsdk.maven.url')
-credentials {
-   username = properties.getProperty('walletsdk.maven.username')
-   password = properties.getProperty('walletsdk.maven.password')
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+        maven {
+             Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+            url properties.getProperty('walletsdk.maven.url')
+            credentials {
+                username = properties.getProperty('walletsdk.maven.username')
+                password = properties.getProperty('walletsdk.maven.password')
+            }
+        }
+    }
 }
 
 ```
 
 Add the following code to your `app/build.gradle` file:
 ```groovy
-implementation 'io.github.aag-ventures:MetaOneSDK:1.4.9'
+implementation 'io.github.aag-ventures:MetaOneSDK:1.6.1'
 ```
 
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
 ```groovy
-dependencies {
-// M1 SDK auth realm
-val sdkRealm = properties.getProperty("sdk.realm")
-buildConfigField("String", "SDK_REALM", "\"${sdkRealm}\"")
-// M1 SDK environment (dev, test, stage, prod)
-val sdkEnvironment = properties.getProperty("sdk.environment") ?: ""
-buildConfigField("String", "SDK_ENVIRONMENT", "\"${sdkEnvironment}\"")
-// Wallet SDK Key (provided by AAG)
-val sdkKey = properties.getProperty("sdk.key") ?: ""
-buildConfigField("String", "SDK_KEY", "\"${sdkKey}\"")
-// Wallet config url (provided by AAG)
-val sdkConfigUrl = properties.getProperty("sdk.config.url") ?: ""
-buildConfigField("String", "SDK_CONFIG_URL", "\"${sdkConfigUrl}\"")
-// Client reference for API (provided by AAG)
-val sdkApiClientReference = properties.getProperty("sdk.api.client.reference") ?: ""
-buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${sdkApiClientReference}\"")
-}
+   defaultConfig {
+        ...
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        // M1 SDK auth realm
+        buildConfigField("String", "SDK_REALM", "\"${properties["sdk.realm"]}\"")
+        // M1 SDK environment (dev, test, stage, prod)
+        buildConfigField("String", "SDK_ENVIRONMENT", "\"${properties["sdk.environment"]}\"")
+        // Wallet SDK Key (provided by AAG)
+        buildConfigField("String", "SDK_KEY", "\"${properties["sdk.key"]}\"")
+        // Client config url
+        buildConfigField("String", "SDK_CONFIG_URL", "\"${properties["sdk.config.url"]}\"")
+        // Client reference for API (provided by AAG)
+        buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${properties["sdk.api.client.reference"]}\"")
+        // Client Key Phrase for API
+        buildConfigField("String", "SDK_API_KEY_PHRASE", "\"${properties["sdk.api.key.phrase"]}\"")
+        // Specify mainnet or testnet
+        buildConfigField("Boolean", "SDK_MAINNET", properties["sdk.mainnet"])
+    }
+
 ```
 
 **Step 3:** Initializing SDK
@@ -76,7 +96,11 @@ val sdkConfig = SDKConfig(
     BuildConfig.SDK_ENVIRONMENT,
     BuildConfig.SDK_KEY,
     BuildConfig.SDK_CONFIG_URL,
-    BuildConfig.SDK_API_CLIENT_REFERENCE
+    BuildConfig.SDK_API_CLIENT_REFERENCE,
+    BuildConfig.SDK_API_KEY_PHRASE,
+    BuildConfig.VERSION_NAME,
+    null,
+    BuildConfig.SDK_MAINNET
 )
 ```
 
@@ -155,10 +179,65 @@ Future feature (In progress) - custom transaction Signing manager (txFees, gasLi
 
 **MetaOneSDKUIManager functions**
 
-- `getCurrentTheme()`: Retrieves the currently set theme for the MetaOne SDK UI. It returns an Int value representing the theme.
+- `getColorsScheme()`: Retrieves the currently set colors for the MetaOne SDK UI. It returns colors
   
-- `setCurrentTheme(theme: Int)`: Sets the theme for the MetaOne SDK UI. You need to provide the desired theme as an Int value. IMPORTANT. Currently there are 2 available themes (light, dark). During the integration process you can ask your success manager to add an additional theme by providing a custom color scheme.
-  
+- `setColorsScheme(colors: ColorsScheme)`: Sets the colors for the MetaOne SDK UI. You need to provide the desired colors as an M1Color.ColorsScheme object.
+
+```
+{
+        "alwaysWhite": "#FFFFFF",
+        "alwaysBlack": "#101111",
+        "primary": "#386CF3",
+        "primary80": "#386CF3CC",
+        "primary60": "#386CF399",
+        "primary40": "#386CF366",
+        "primary20": "#417FF6CC",
+        "secondary": "#604EFF",
+        "secondary80": "#604EFFCC",
+        "secondary60": "#604EFF99",
+        "secondary40": "#604EFF66",
+        "secondary20": "#604EFF33",
+        "secondary15": "#604EFF26",
+        "primaryButtonBg": "#386CF3",
+        "primaryButtonBgDisabled": "#386CF360",
+        "primaryButtonText": "#FFFFFF",
+        "secondaryButtonBg": "#417FF6CC",
+        "secondaryButtonBgDisabled": "#417FF633",
+        "secondaryButtonText": "#386CF3",
+        "errorButtonBg": "#FFFFFF",
+        "errorButtonText": "#D93F33",
+        "green": "#1BAC3F",
+        "greenBg": "#B7E8C3",
+        "yellow": "#DEA511",
+        "yellowBg": "#F0E29A",
+        "yellow15": "#DEA51126",
+        "red": "#D93F33",
+        "redBg": "#F5B9B5",
+        "blue": "#386CF3",
+        "blueBg": "#C6DAFF",
+        "wireframes": "#BDC2CA",
+        "wireframesLight": "#D8E0E5",
+        "gradientLight": "#E0F9FD",
+        "gradientViolet": "#6851F5",
+        "gradientBlue": "#7999FE",
+        "average": "#F7931A",
+        "background": "#F0F2F4",
+        "background20": "#F0F2F433",
+        "white": "#FFFFFF",
+        "white20": "#FFFFFF33",
+        "white50": "#FFFFFF80",
+        "white80": "#FFFFFFCC",
+        "black": "#101111",
+        "black80": "#101111CC",
+        "black60": "#10111199",
+        "black40": "#10111166",
+        "black20": "#10111133",
+        "black15": "#10111126",
+        "black10": "#1011111A",
+        "black5": "#1011110D",
+        "pin": "#0066FF"
+}
+```
 - `getCurrentLanguage()`: Retrieves the currently set language for the MetaOne SDK UI. It returns a Locale object representing the language.
   
 - `setCurrentLanguage(locale: String)`: Sets the language for the MetaOne SDK UI. You need to provide the desired language as a String value, representing the locale.
