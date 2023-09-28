@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background"
+    android:background="@color/background"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/d24">
@@ -13,17 +12,91 @@
         android:id="@+id/planets_spinner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/d38"
-        android:layout_marginBottom="@dimen/d20"
-        android:background="@color/blue_background20" />
+        android:layout_marginBottom="@dimen/d10"
+        android:background="@color/background20" />
 
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
+    <LinearLayout
+        android:id="@+id/infoIdContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/select_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Select ID:"
+            android:textColor="@color/black" />
+        <Spinner
+            android:id="@+id/ids_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d38"
+            android:layout_marginBottom="@dimen/d10"
+            android:background="@color/background20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/requestBodyContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/blue_black10"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:textColor="?attr/black" />
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/requestBodyLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Request Body:"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/requestBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/black10"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="8dp"
+        android:onClick="onSubmitClick"
+        android:text="Submit" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/responseLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Response:"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/responseBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/black10"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
 </LinearLayout>

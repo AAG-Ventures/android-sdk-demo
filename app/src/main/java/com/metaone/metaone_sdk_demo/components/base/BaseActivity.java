@@ -7,32 +7,53 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import java.util.Locale;
 
+import ventures.aag.metaonesdk.managers.MetaOneSDKManager;
 import ventures.aag.metaonesdk.managers.MetaOneSDKUIManager;
+import ventures.aag.metaonesdk.models.M1Color;
 
 
 abstract public class BaseActivity extends AppCompatActivity {
 
-    private MetaOneSDKUIManager metaOneSDKUIManager;
+    public MetaOneSDKUIManager metaOneSDKUIManager;
+    public MetaOneSDKManager metaOneSDKManager;
+    public M1Color.IntColorsScheme colors;
     private int theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        metaOneSDKUIManager = new MetaOneSDKUIManager();
+        metaOneSDKManager =  new MetaOneSDKManager(this);
+        metaOneSDKUIManager =  metaOneSDKManager.getUiManager();
+        colors = metaOneSDKUIManager.getColorsScheme();
         setLocale();
-        theme = metaOneSDKUIManager.getCurrentTheme();
-        setTheme(theme);
+    }
+
+    private void clearActivityReferences() {
+        if (metaOneSDKUIManager.getCurrentActivity() == this)
+            metaOneSDKUIManager.setCurrentActivity(null);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (theme != metaOneSDKUIManager.getCurrentTheme()) {
-            theme = metaOneSDKUIManager.getCurrentTheme();
-            recreate();
-        }
+        metaOneSDKUIManager.setCurrentActivity(this);
+        colors = metaOneSDKUIManager.getColorsScheme();
+        setCustomTheme();
+    }
+
+    @Override
+    protected void onPause() {
+        clearActivityReferences();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        clearActivityReferences();
+        super.onDestroy();
     }
 
     private void setLocale() {
@@ -44,5 +65,9 @@ abstract public class BaseActivity extends AppCompatActivity {
             configuration.setLayoutDirection(locale);
         }
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
+
+    private void setCustomTheme() {
+        getWindow().setStatusBarColor(colors.getBackground());
     }
 }

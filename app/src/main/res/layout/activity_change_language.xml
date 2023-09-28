@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="@dimen/d24">
 
@@ -13,13 +14,14 @@
         android:text="Go back" />
 
     <TextView
+        android:id="@+id/title"
         style="@style/h2_sb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/d20"
         android:gravity="center"
         android:text="@string/base_lang"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <ScrollView
         android:layout_width="match_parent"

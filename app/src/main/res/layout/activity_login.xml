@@ -4,7 +4,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background"
+    android:background="@color/background"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/d24">
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Authorize"
-                android:textColor="?attr/black" />
+                android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_email_input"
@@ -38,8 +38,8 @@
                 android:layout_height="@dimen/d48"
                 android:hint="Email"
                 android:text=""
-                android:textColor="?attr/black"
-                android:textColorHint="?attr/black60" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black60" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_pass_input"
@@ -48,27 +48,27 @@
                 android:hint="Password"
                 android:text=""
                 android:visibility="gone"
-                android:textColor="?attr/black"
-                android:textColorHint="?attr/black60" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black60" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login" />
+                <Button
+                    android:id="@+id/login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Login" />
 
-            <ProgressBar
-                android:id="@+id/loadingIndicator"
-                android:layout_width="@dimen/d32"
-                android:layout_height="@dimen/d32"
-                android:layout_gravity="center"
-                android:visibility="gone" />
+                <ProgressBar
+                    android:id="@+id/loadingIndicator"
+                    android:layout_width="@dimen/d32"
+                    android:layout_height="@dimen/d32"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
 
-        </FrameLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/confirm_block"
@@ -84,15 +84,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:text="Confirm"
-                android:textColor="?attr/black" />
+                android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_code_input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/d48"
                 android:hint="2fa code"
-                android:textColor="?attr/black"
-                android:textColorHint="?attr/black60" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black60" />
 
             <Button
                 android:id="@+id/confirm_2fa_button"

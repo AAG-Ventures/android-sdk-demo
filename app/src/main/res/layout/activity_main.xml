@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="@dimen/d24">
 
@@ -43,29 +43,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Expires at:"
-                    android:textColor="?attr/black" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/expires_at"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/d10"
                     android:text="-"
-                    android:textColor="?attr/black" />
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/d10"
+                    android:text=""
+                    android:textColor="@color/black" />
 
                 <TextView
                     style="@style/h2_sb"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="Authorized"
-                    android:textColor="?attr/black" />
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/open_wallet_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Open wallet activity" />
+                <Button
+                    android:id="@+id/open_browser_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Open browser activity" />
+                <Button
+                    android:id="@+id/sign_custom_tx_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Sign custom TX" />
 
                 <Button
                     android:id="@+id/api_testing_btn"
