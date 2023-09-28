@@ -3,6 +3,7 @@ package com.metaone.metaone_sdk_demo;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.metaone.metaone_sdk_demo.components.base.BaseActivity;
@@ -21,12 +22,13 @@ public class ChangeLanguageActivity extends BaseActivity {
 
 
     private void onChangeLanguage(String locale) {
-        MetaOneSDKUIManager metaOneSDKUIManager = new MetaOneSDKUIManager();
         metaOneSDKUIManager.setCurrentLanguage(locale);
         recreate();
     }
 
     private void addButtonActions() {
+        findViewById(R.id.background).setBackgroundColor(colors.getBackground());
+        ((TextView) findViewById(R.id.title)).setTextColor(colors.getBlack());
 
         Button goBack = findViewById(R.id.go_back);
         goBack.setOnClickListener(v -> onBackPressed());

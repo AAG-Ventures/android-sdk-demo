@@ -15,38 +15,68 @@ import android.widget.Toast;
 
 import com.metaone.metaone_sdk_demo.components.base.BaseActivity;
 
+import kotlin.Pair;
 import ventures.aag.metaonesdk.models.ErrorResponse;
 import ventures.aag.metaonesdk.models.M1EnqueueCallback;
-import ventures.aag.metaonesdk.managers.MetaOneSDKManager;
 import ventures.aag.metaonesdk.managers.OnTokenExpirationListener;
 import ventures.aag.metaonesdk.models.SDKConfig;
 import ventures.aag.metaonesdk.models.SessionActivityStatus;
+import ventures.aag.metaonesdk.models.User;
+import ventures.aag.metaonesdk.models.api.UserApiModel;
 
 public class MainActivity extends BaseActivity {
-    private MetaOneSDKManager metaOneSDKManager;
 
     private LinearLayout unauthorizedLayout;
     private Button loginButton;
+
+    private Boolean isSDKInitialized = false;
 
     private LinearLayout authorizedLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        metaOneSDKManager = new MetaOneSDKManager(this);
         setContentView(R.layout.activity_main);
         addButtonActions();
         initializeSDK();
+        setColors();
+    }
+
+    protected void setColors() {
+        findViewById(R.id.background).setBackgroundColor(colors.getBackground());
+        ((TextView) findViewById(R.id.title)).setTextColor(colors.getBlack());
+        ((TextView) findViewById(R.id.textView)).setTextColor(colors.getBlack());
+        ((TextView) findViewById(R.id.expires_at)).setTextColor(colors.getBlack());
+        ((TextView) findViewById(R.id.email)).setTextColor(colors.getBlack());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (isSDKInitialized) {
+            startSessionTracker();
+        }
     }
 
     private void initializeSDK() {
-        SDKConfig sdkConfig = new SDKConfig(BuildConfig.SDK_REALM, BuildConfig.SDK_ENVIRONMENT, BuildConfig.SDK_KEY, BuildConfig.SDK_CONFIG_URL, BuildConfig.SDK_API_CLIENT_REFERENCE);
+        SDKConfig sdkConfig = new SDKConfig(
+                BuildConfig.SDK_REALM,
+                BuildConfig.SDK_ENVIRONMENT,
+                BuildConfig.SDK_KEY,
+                BuildConfig.SDK_CONFIG_URL,
+                BuildConfig.SDK_API_CLIENT_REFERENCE,
+                BuildConfig.SDK_API_KEY_PHRASE,
+                BuildConfig.VERSION_NAME,
+                null,
+                BuildConfig.SDK_MAINNET
+                );
         metaOneSDKManager.initialize(sdkConfig,
                 new M1EnqueueCallback<>() {
                     @Override
                     public void onSuccess(Boolean result) {
                         super.onSuccess(result);
                         startSessionTracker();
+                        isSDKInitialized = true;
                     }
 
                     @Override
@@ -89,7 +119,6 @@ public class MainActivity extends BaseActivity {
         authorizedLayout = findViewById(R.id.authorized_layout);
         loginButton = findViewById(R.id.login_button);
         unauthorizedLayout = findViewById(R.id.unauthorized_wrapper);
-
         loginButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -97,7 +126,6 @@ public class MainActivity extends BaseActivity {
 
         Button openWalletButton = findViewById(R.id.open_wallet_btn);
         openWalletButton.setOnClickListener(v -> {
-            MetaOneSDKManager metaOneSDKManager = new MetaOneSDKManager(MainActivity.this);
             try {
                 metaOneSDKManager.openWallet();
             } catch (Exception e) {
@@ -106,6 +134,22 @@ public class MainActivity extends BaseActivity {
                 toast.show();
             }
 
+        });
+        Button openBrowserButton = findViewById(R.id.open_browser_btn);
+        openBrowserButton.setOnClickListener(v -> {
+            try {
+                metaOneSDKManager.openBrowser();
+            } catch (Exception e) {
+                CharSequence text = e.getMessage();
+                Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        });
+        Button customTxButton = findViewById(R.id.sign_custom_tx_btn);
+        customTxButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SignCustomActivity.class);
+            startActivity(intent);
         });
 
         Button apiTestButton = findViewById(R.id.api_testing_btn);
@@ -163,16 +207,24 @@ public class MainActivity extends BaseActivity {
         if (isAuthorized) {
             Long expireAt = metaOneSDKManager.getExpireAt();
             // Check if expires at is greater than current time
+
+            M1EnqueueCallback  callback = new M1EnqueueCallback<Pair<UserApiModel.GetProfileResponse, User.UserState>>(){
+                @Override
+                public void onSuccess(Pair<UserApiModel.GetProfileResponse, User.UserState> response) {
+                    TextView email = findViewById(R.id.email);
+                    email.setText("Email: " + response.component1().getProfile().getEmail());
+                }
+            };
             if (expireAt < currentTimeUnix() + 5) {
                 metaOneSDKManager.refreshSession(new M1EnqueueCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean result) {
                         super.onSuccess(result);
-                        metaOneSDKManager.setupUserData(null);
+                        metaOneSDKManager.setupUserData(callback);
                     }
                 });
             } else {
-                metaOneSDKManager.setupUserData(null);
+                metaOneSDKManager.setupUserData(callback);
             }
         }
     }
@@ -181,5 +233,6 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         onChangeIsAuthorized();
+        setColors();
     }
 }

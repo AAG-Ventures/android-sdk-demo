@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="@dimen/d24">
 
@@ -12,7 +12,6 @@
         android:id="@+id/loadingOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_background"
         android:alpha="0.8"
         android:gravity="center"
         android:visibility="visible">
@@ -39,7 +38,7 @@
             android:gravity="center"
             android:text="Bitcoin wallet with balance needed for transaction sign demo"
             android:visibility="gone"
-            android:textColor="?attr/black" />
+            android:textColor="@color/black" />
     </RelativeLayout>
 
     <ScrollView
@@ -58,6 +57,7 @@
         android:text="Go back" />
 
     <TextView
+        android:id="@+id/title"
         style="@style/h2_sb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,14 +65,15 @@
         android:layout_marginBottom="@dimen/d12"
         android:gravity="center"
         android:text="Sign transaction"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/from_address_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="From:"
         android:layout_marginBottom="@dimen/d6"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/from_address"
@@ -80,15 +81,16 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:text="address"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/to_address_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="To:"
         android:layout_marginTop="@dimen/d24"
         android:layout_marginBottom="@dimen/d6"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/to_address"
@@ -96,16 +98,17 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:text="2NFdZe8jeV×Xn3cJBMe8yuU3FBkmHQN2mf2"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
 
     <TextView
+        android:id="@+id/btc_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BTC amount:"
         android:layout_marginTop="@dimen/d24"
         android:layout_marginBottom="@dimen/d6"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/amount"
@@ -113,9 +116,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:text="0.00001"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/detail"
         style="@style/h2_sb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,15 +127,16 @@
         android:layout_marginBottom="@dimen/d12"
         android:gravity="left"
         android:text="Details:"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/gasPriceLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Gas price:"
         android:layout_marginTop="@dimen/d24"
         android:layout_marginBottom="@dimen/d6"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/gasPrice"
@@ -139,15 +144,16 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:text=""
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/gasLimitLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Gas limit:"
         android:layout_marginTop="@dimen/d24"
         android:layout_marginBottom="@dimen/d6"
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/gasLimit"
@@ -155,7 +161,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:text=""
-        android:textColor="?attr/black" />
+        android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/calculate_fees"

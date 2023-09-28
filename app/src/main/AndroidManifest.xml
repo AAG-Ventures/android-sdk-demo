@@ -3,31 +3,48 @@
     package="com.metaone.metaone_sdk_demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/M1SDKTheme.Light"
-        android:windowSoftInputMode="adjustResize"
-        >
+        android:theme="@style/M1SDKTheme"
+        android:windowSoftInputMode="adjustResize">
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:exported="true" />
-        <activity android:name=".ApiTestingActivity" android:exported="true" />
-        <activity android:name=".ChangeLanguageActivity" android:exported="true" />
-        <activity android:name=".ChangeThemeActivity" android:exported="true" />
-        <activity android:name=".SignCustomActivity" android:exported="true" />
-        <activity android:name=".SignCustomMessageActivity" android:exported="true" />
-        <activity android:name=".SignCustomTransactionActivity" android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ApiTestingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChangeLanguageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChangeThemeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignCustomActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignCustomMessageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignCustomTransactionActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

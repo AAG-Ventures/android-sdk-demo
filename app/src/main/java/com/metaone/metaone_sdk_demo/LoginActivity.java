@@ -37,7 +37,7 @@ public class LoginActivity extends BaseActivity {
     private ProgressBar loadingIndicator;
     private Button loginButton;
 
-    MetaOneSDKManager metaOneSDKManager;
+
 
     PreferenceUtils preference;
 
@@ -45,7 +45,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        metaOneSDKManager = new MetaOneSDKManager(this);
         setContentView(R.layout.activity_login);
         loadingIndicator = findViewById(R.id.loadingIndicator);
         TextView textView = findViewById(R.id.header_title);
@@ -58,18 +57,23 @@ public class LoginActivity extends BaseActivity {
 
     protected void setUpKeyboard() {
         View layout = findViewById(R.id.root_layout);
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
+        layout.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
     }
+    private void setColors() {
+        findViewById(R.id.root_layout).setBackgroundColor(colors.getBackground());
+        ((TextView) findViewById(R.id.header_title)).setTextColor(colors.getBlack());
+        TextInputEditText loginEmailInput=findViewById(R.id.login_email_input);
+        loginEmailInput.setTextColor(colors.getBlack());
+        loginEmailInput.setHintTextColor(colors.getBlack60());
+    }
 
     private void addButtonActions() {
+        setColors();
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> handleLogin());
 
@@ -131,12 +135,18 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void SSOLogIn(String token) {
-        metaOneSDKManager.login(token, this, new M1EnqueueCallback<>() {
+        metaOneSDKManager.login(token, this, new M1EnqueueCallback<Boolean>() {
             @Override
-            public void onSuccess(AuthApiModel.AuthResponse response) {
-                setLoading(false);
-                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                finish();
+            public void onSuccess(Boolean response) {
+                if(response){
+                    setLoading(false);
+                    Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    showToast("Login failed");
+                    reset();
+                }
+
             }
 
             @Override
@@ -164,5 +174,6 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         isAuthorized();
+        setColors();
     }
 }
