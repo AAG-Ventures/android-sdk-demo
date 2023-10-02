@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity {
                 BuildConfig.SDK_API_CLIENT_REFERENCE,
                 BuildConfig.SDK_API_KEY_PHRASE,
                 BuildConfig.VERSION_NAME,
-                null,
                 BuildConfig.SDK_MAINNET
                 );
         metaOneSDKManager.initialize(sdkConfig,

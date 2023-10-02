@@ -27,7 +27,7 @@ abstract public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         metaOneSDKManager =  new MetaOneSDKManager(this);
         metaOneSDKUIManager =  metaOneSDKManager.getUiManager();
-        colors = metaOneSDKUIManager.getColorsScheme();
+        colors = metaOneSDKUIManager.getColorsScheme().toIntColors();
         setLocale();
     }
 
@@ -40,7 +40,7 @@ abstract public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         metaOneSDKUIManager.setCurrentActivity(this);
-        colors = metaOneSDKUIManager.getColorsScheme();
+        colors = metaOneSDKUIManager.getColorsScheme().toIntColors();
         setCustomTheme();
     }
 
