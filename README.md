@@ -54,7 +54,7 @@ allprojects {
 
 Add the following code to your `app/build.gradle` file:
 ```groovy
-implementation 'io.github.aag-ventures:MetaOneSDK:1.6.1'
+implementation 'io.github.aag-ventures:MetaOneSDK:1.6.7'
 ```
 
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
