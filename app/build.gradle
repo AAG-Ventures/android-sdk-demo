@@ -28,8 +28,6 @@ android {
         buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${properties["sdk.api.client.reference"]}\"")
         // Client Key Phrase for API
         buildConfigField("String", "SDK_API_KEY_PHRASE", "\"${properties["sdk.api.key.phrase"]}\"")
-        // Specify mainnet or testnet
-        buildConfigField("Boolean", "SDK_MAINNET", properties["sdk.mainnet"])
     }
 
     signingConfigs {

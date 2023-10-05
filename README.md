@@ -98,7 +98,6 @@ val sdkConfig = SDKConfig(
     BuildConfig.SDK_API_KEY_PHRASE,
     BuildConfig.VERSION_NAME,
     null,
-    BuildConfig.SDK_MAINNET
 )
 ```
 
