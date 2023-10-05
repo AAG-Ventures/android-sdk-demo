@@ -66,8 +66,7 @@ public class MainActivity extends BaseActivity {
                 BuildConfig.SDK_CONFIG_URL,
                 BuildConfig.SDK_API_CLIENT_REFERENCE,
                 BuildConfig.SDK_API_KEY_PHRASE,
-                BuildConfig.VERSION_NAME,
-                BuildConfig.SDK_MAINNET
+                BuildConfig.VERSION_NAME
                 );
         metaOneSDKManager.initialize(sdkConfig,
                 new M1EnqueueCallback<>() {
