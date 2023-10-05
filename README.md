@@ -54,7 +54,7 @@ allprojects {
 
 Add the following code to your `app/build.gradle` file:
 ```groovy
-implementation 'io.github.aag-ventures:MetaOneSDK:1.6.7'
+implementation 'io.github.aag-ventures:MetaOneSDK:1.6.8'
 ```
 
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
@@ -76,8 +76,6 @@ Add mapping to `local.properties` key values to your `app/build.gradle` file:
         buildConfigField("String", "SDK_API_CLIENT_REFERENCE", "\"${properties["sdk.api.client.reference"]}\"")
         // Client Key Phrase for API
         buildConfigField("String", "SDK_API_KEY_PHRASE", "\"${properties["sdk.api.key.phrase"]}\"")
-        // Specify mainnet or testnet
-        buildConfigField("Boolean", "SDK_MAINNET", properties["sdk.mainnet"])
     }
 
 ```
