@@ -25,7 +25,6 @@ sdk.api.key.phrase=given-by-client(Key Phrase for API)
 sdk.config.url=given-by-client
 sdk.key=given-by-aag
 sdk.realm=given-by-aag
-sdk.mainnet=given-by-client (specify mainnet or testnet as true or false)
 
 ```
 
