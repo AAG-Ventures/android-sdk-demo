@@ -115,7 +115,7 @@ metaOneSDKManager.login(token, this, callback)
 ```
 
 Your session is initialized. You can now use all other functions that require Authorization.
-Call `metaOneSDKManager.setup()` to initialize user profile data.
+Call `metaOneSDKManager.setupUserData()` to initialize user profile data.
 
 ## Using SDK functions
 
