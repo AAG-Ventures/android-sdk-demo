@@ -1,0 +1,13 @@
+
+u
+java:S1104"_Make metaOneSDKUIManager a static final constant or non-public and provide accessors if needed.(Ðþƒ°
+s
+java:S1104"]Make metaOneSDKManager a static final constant or non-public and provide accessors if needed.(þìçî
+h
+java:S1104"RMake colors a static final constant or non-public and provide accessors if needed.(É×ÎÁ
+Z
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Ò•’}
+V
+java:S1874C";Remove this use of "updateConfiguration"; it is deprecated.(ÙôÙÐþÿÿÿÿ
+>
+java:S1068")Remove this unused "theme" private field.(Ëœ¾e

@@ -58,7 +58,7 @@
                 android:layout_marginTop="@dimen/d32"
                 android:layout_marginBottom="@dimen/d12"
                 android:gravity="center"
-                android:text="Sign custom transaction"
+                android:text="Sign currency send transaction"
                 android:textColor="@color/black" />
 
             <TextView
@@ -78,22 +78,53 @@
                 android:background="@color/background20" />
 
             <TextView
+                android:id="@+id/select_asset_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d6"
+                android:gravity="left"
+                android:text="Select Asset"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:id="@+id/assets_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/d38"
+                android:layout_marginBottom="@dimen/d10"
+                android:background="@color/background20" />
+
+            <TextView
                 android:id="@+id/to_address_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/d6"
-                android:text="Signing Data"
+                android:text="To:"
                 android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/to_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d10"
                 android:background="@color/black10"
-                android:ems="10"
                 android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:minHeight="100dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/amount_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d6"
+                android:text="Amount:"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d10"
+                android:background="@color/black10"
+                android:gravity="start|top"
                 android:textColor="@color/black" />
 
             <TextView
@@ -108,6 +139,25 @@
                 android:id="@+id/personal_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d10"
+                android:background="@color/black10"
+                android:ems="10"
+                android:gravity="start|top"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/response_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d6"
+                android:text="Response:"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/response"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d10"
                 android:background="@color/black10"
                 android:ems="10"
                 android:gravity="start|top"
@@ -115,15 +165,26 @@
                 android:minHeight="50dp"
                 android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/sign_custom_transaction"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d50"
-                android:layout_marginBottom="@dimen/d32"
-                android:enabled="false"
-                android:text="Sign" />
+                android:layout_marginBottom="@dimen/d32">
 
+                <Button
+                    android:id="@+id/sign_custom_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="Sign" />
+
+                <ProgressBar
+                    android:id="@+id/loadingIndicator"
+                    android:layout_width="@dimen/d32"
+                    android:layout_height="@dimen/d32"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

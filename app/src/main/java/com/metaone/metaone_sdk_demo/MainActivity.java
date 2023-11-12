@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +60,14 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private void setSignatureIntroContent() {
+        FrameLayout layout = new FrameLayout(this);
+        ImageView image = new ImageView(this);
+        image.setImageResource(R.drawable.signature_intro);
+        layout.addView(image);
+        metaOneSDKManager.getUiManager().setSignatureIntroContent(layout);
+    }
+
     private void initializeSDK() {
         SDKConfig sdkConfig = new SDKConfig(
                 BuildConfig.SDK_REALM,
@@ -67,7 +77,7 @@ public class MainActivity extends BaseActivity {
                 BuildConfig.SDK_API_CLIENT_REFERENCE,
                 BuildConfig.SDK_API_KEY_PHRASE,
                 BuildConfig.VERSION_NAME
-                );
+        );
         metaOneSDKManager.initialize(sdkConfig,
                 new M1EnqueueCallback<>() {
                     @Override
@@ -75,6 +85,7 @@ public class MainActivity extends BaseActivity {
                         super.onSuccess(result);
                         startSessionTracker();
                         isSDKInitialized = true;
+                        setSignatureIntroContent();
                     }
 
                     @Override
@@ -144,10 +155,14 @@ public class MainActivity extends BaseActivity {
             }
 
         });
-        Button customTxButton = findViewById(R.id.sign_custom_tx_btn);
+        Button customTxButton = findViewById(R.id.send_custom_tx_btn);
         customTxButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SignCustomActivity.class);
-            startActivity(intent);
+            if (metaOneSDKManager.getUserState().getSetPin() == true) {
+                Intent intent = new Intent(MainActivity.this, SignCurrencySendTransactionActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Please create your signature", Toast.LENGTH_LONG).show();
+            }
         });
 
         Button apiTestButton = findViewById(R.id.api_testing_btn);
@@ -206,7 +221,7 @@ public class MainActivity extends BaseActivity {
             Long expireAt = metaOneSDKManager.getExpireAt();
             // Check if expires at is greater than current time
 
-            M1EnqueueCallback  callback = new M1EnqueueCallback<Pair<UserApiModel.GetProfileResponse, User.UserState>>(){
+            M1EnqueueCallback callback = new M1EnqueueCallback<Pair<UserApiModel.GetProfileResponse, User.UserState>>() {
                 @Override
                 public void onSuccess(Pair<UserApiModel.GetProfileResponse, User.UserState> response) {
                     TextView email = findViewById(R.id.email);

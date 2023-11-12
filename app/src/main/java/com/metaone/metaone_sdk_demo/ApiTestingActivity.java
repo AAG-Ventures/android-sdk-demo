@@ -15,13 +15,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.metaone.metaone_sdk_demo.components.base.BaseActivity;
 
-import java.util.Arrays;
+
 
 import ventures.aag.metaonesdk.models.Contacts;
 import ventures.aag.metaonesdk.models.ErrorResponse;
 import ventures.aag.metaonesdk.models.M1EnqueueCallback;
-import ventures.aag.metaonesdk.managers.MetaOneSDKApiManager;
-import ventures.aag.metaonesdk.managers.MetaOneSDKManager;
 import ventures.aag.metaonesdk.models.Response;
 import ventures.aag.metaonesdk.models.api.ContactsApiModel;
 import ventures.aag.metaonesdk.models.api.TransactionAPIModel;

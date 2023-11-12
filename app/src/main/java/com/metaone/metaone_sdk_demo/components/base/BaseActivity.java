@@ -28,7 +28,6 @@ abstract public class BaseActivity extends AppCompatActivity {
         metaOneSDKManager =  new MetaOneSDKManager(this);
         metaOneSDKUIManager =  metaOneSDKManager.getUiManager();
         colors = metaOneSDKUIManager.getColorsScheme().toIntColors();
-        setLocale();
     }
 
     private void clearActivityReferences() {
@@ -54,17 +53,6 @@ abstract public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         clearActivityReferences();
         super.onDestroy();
-    }
-
-    private void setLocale() {
-        Resources resources = getResources();
-        Configuration configuration = resources.getConfiguration();
-        Locale locale = metaOneSDKUIManager.getCurrentLanguage();
-        configuration.setLocale(locale);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLayoutDirection(locale);
-        }
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
     private void setCustomTheme() {

@@ -78,14 +78,12 @@
                     android:id="@+id/open_browser_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:text="Open browser activity" />
                 <Button
-                    android:id="@+id/sign_custom_tx_btn"
+                    android:id="@+id/send_custom_tx_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Sign custom TX" />
+                    android:text="Send custom transaction" />
 
                 <Button
                     android:id="@+id/api_testing_btn"
