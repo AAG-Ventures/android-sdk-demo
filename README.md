@@ -151,6 +151,8 @@ Future feature (In progress) - custom transaction Signing manager (txFees, gasLi
 
 - `getSessionActivityStatus(): SessionActivityStatus`: Retrieves the current session activity status, which can be one of the values defined in the SessionActivityStatus enum.
 
+- `sendTransaction()`: Allows to initiate a signing action for sending assets from user's wallet to provided wallet address.
+
 - `logout()`: Logs out the user by clearing the session data, signing out the wallet service.
 
 **MetaOneSDKApiManager functions**
