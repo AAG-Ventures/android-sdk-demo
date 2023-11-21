@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.metaone.metaone_sdk_demo.components.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class SignCurrencySendTransactionActivity extends BaseActivity {
     Spinner assetsSpinner, walletsSpinner;
     Wallets.UserWallet wallet;
     Wallets.WalletToken token;
-    EditText personalNote, toAddress, amountInput, responseInput;
+    EditText personalNote, toAddress, amountInput;
     Button goBack, signCustomTransaction;
 
     ProgressBar loadingIndicator;
@@ -56,7 +57,6 @@ public class SignCurrencySendTransactionActivity extends BaseActivity {
         personalNote = findViewById(R.id.personal_note);
         toAddress = findViewById(R.id.to_address);
         amountInput = findViewById(R.id.amount);
-        responseInput = findViewById(R.id.response);
         signCustomTransaction = findViewById(R.id.sign_custom_transaction);
         loadingIndicator = findViewById(R.id.loadingIndicator);
 
@@ -84,13 +84,9 @@ public class SignCurrencySendTransactionActivity extends BaseActivity {
         ((TextView) findViewById(R.id.personal_note_header)).setTextColor(colors.getBlack());
         ((TextView) findViewById(R.id.to_address_header)).setTextColor(colors.getBlack());
         ((TextView) findViewById(R.id.amount_header)).setTextColor(colors.getBlack());
-        ((TextView) findViewById(R.id.response_header)).setTextColor(colors.getBlack());
-
-        walletsSpinner.setBackgroundColor(colors.getBlack());
-        assetsSpinner.setBackgroundColor(colors.getBlack());
-
+        walletsSpinner.setBackgroundColor(colors.getAlwaysWhite());
+        assetsSpinner.setBackgroundColor(colors.getAlwaysWhite());
         personalNote.setBackgroundColor(colors.getAlwaysWhite());
-        responseInput.setBackgroundColor(colors.getAlwaysWhite());
         toAddress.setBackgroundColor(colors.getAlwaysWhite());
         amountInput.setBackgroundColor(colors.getAlwaysWhite());
     }
@@ -153,16 +149,19 @@ public class SignCurrencySendTransactionActivity extends BaseActivity {
         String address = String.valueOf(toAddress.getText());
         String note = String.valueOf(personalNote.getText());
         setLoading(true);
-        metaOneSDKManager.sendTransaction(wallet, address, amount, note, token, "", (data) -> {
-            responseInput.setText(data.toString());
-            setLoading(false);
-            if (data.getError() == null) {
-                Toast.makeText(getApplicationContext(), "Transaction successfully signed and sent", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), data.getError().getError(), Toast.LENGTH_LONG).show();
-            }
-            return null;
-        });
+        metaOneSDKManager.sendTransaction(wallet, address, amount, note, token, "",
+                new M1EnqueueCallback<>() {
+                    @Override
+                    public void onSuccess(Boolean response) {
+                        setLoading(false);
+                        Toast.makeText(getApplicationContext(),response?  "Transaction successfully signed and sent" : "Transaction failed", Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onError(ErrorResponse errorResponse) {
+                        setLoading(false);
+                        Toast.makeText(getApplicationContext(), errorResponse.getError(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
