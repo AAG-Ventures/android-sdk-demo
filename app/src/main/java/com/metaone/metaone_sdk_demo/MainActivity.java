@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity {
         });
         Button customTxButton = findViewById(R.id.send_custom_tx_btn);
         customTxButton.setOnClickListener(v -> {
-            if (metaOneSDKManager.getUserState().getSetPin() == true) {
+            if (metaOneSDKManager.isSignatureSet()) {
                 Intent intent = new Intent(MainActivity.this, SignCurrencySendTransactionActivity.class);
                 startActivity(intent);
             } else {

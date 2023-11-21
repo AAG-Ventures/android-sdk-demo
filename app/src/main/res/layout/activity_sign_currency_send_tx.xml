@@ -145,26 +145,6 @@
                 android:gravity="start|top"
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/response_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d6"
-                android:text="Response:"
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/response"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d10"
-                android:background="@color/black10"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:minHeight="50dp"
-                android:textColor="@color/black" />
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
