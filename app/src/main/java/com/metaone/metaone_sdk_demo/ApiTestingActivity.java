@@ -287,7 +287,7 @@ public class ApiTestingActivity extends BaseActivity {
     protected void updateUserContact(String id, Contacts.ContactRequest request) {
         metaOneSDKManager.getApiManager().updateUserContact(id, request, new M1EnqueueCallback<>() {
             @Override
-            public void onSuccess(ContactsApiModel.ContactResponse response) {
+            public void onSuccess(Response response) {
                 String responseConverted = new Gson().toJson(response);
                 setValueToResponseTextBox(responseConverted);
             }

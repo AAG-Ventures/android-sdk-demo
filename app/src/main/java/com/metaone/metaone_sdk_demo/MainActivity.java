@@ -60,14 +60,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void setSignatureIntroContent() {
-        FrameLayout layout = new FrameLayout(this);
-        ImageView image = new ImageView(this);
-        image.setImageResource(R.drawable.signature_intro);
-        layout.addView(image);
-        metaOneSDKManager.getUiManager().setSignatureIntroContent(layout);
-    }
-
     private void initializeSDK() {
         SDKConfig sdkConfig = new SDKConfig(
                 BuildConfig.SDK_REALM,
@@ -85,7 +77,6 @@ public class MainActivity extends BaseActivity {
                         super.onSuccess(result);
                         startSessionTracker();
                         isSDKInitialized = true;
-                        setSignatureIntroContent();
                     }
 
                     @Override
@@ -137,17 +128,6 @@ public class MainActivity extends BaseActivity {
         openWalletButton.setOnClickListener(v -> {
             try {
                 metaOneSDKManager.openWallet();
-            } catch (Exception e) {
-                CharSequence text = e.getMessage();
-                Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-        });
-        Button openBrowserButton = findViewById(R.id.open_browser_btn);
-        openBrowserButton.setOnClickListener(v -> {
-            try {
-                metaOneSDKManager.openBrowser();
             } catch (Exception e) {
                 CharSequence text = e.getMessage();
                 Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
@@ -218,8 +198,8 @@ public class MainActivity extends BaseActivity {
         authorizedLayout.setVisibility(isAuthorized ? View.VISIBLE : View.GONE);
         unauthorizedLayout.setVisibility(isAuthorized ? View.GONE : View.VISIBLE);
         if (isAuthorized) {
-            Long expireAt = metaOneSDKManager.getExpireAt();
             // Check if expires at is greater than current time
+            Long expireAt = metaOneSDKManager.getExpireAt();
 
             M1EnqueueCallback callback = new M1EnqueueCallback<Pair<UserApiModel.GetProfileResponse, User.UserState>>() {
                 @Override

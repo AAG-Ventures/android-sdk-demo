@@ -61,8 +61,8 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    style="@style/h2_sb"
                     android:id="@+id/title"
+                    style="@style/h2_sb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -74,11 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Open wallet activity" />
-                <Button
-                    android:id="@+id/open_browser_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Open browser activity" />
+
                 <Button
                     android:id="@+id/send_custom_tx_btn"
                     android:layout_width="match_parent"
