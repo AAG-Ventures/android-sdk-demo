@@ -13,3 +13,11 @@ Papp/src/main/java/com/metaone/metaone_sdk_demo/components/base/BaseActivity.jav
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 @
 local.properties,0/7/0712df971a99ac4d2fccb8e0fb19f377f3374cca
+q
+Aapp/src/main/java/com/metaone/metaone_sdk_demo/LoginActivity.java,9/6/962651bcdd0e523cdaabb0b164f88c073c1bcfa5
+p
+@app/src/main/java/com/metaone/metaone_sdk_demo/MainActivity.java,4/2/42df044c186cab4a3abba994d351066a09b01b4d
+@
+app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
+w
+Gapp/src/main/java/com/metaone/metaone_sdk_demo/ChangeThemeActivity.java,e/6/e66461d9ff97152716fee364927ee5171281dd41

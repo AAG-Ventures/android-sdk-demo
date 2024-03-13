@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,7 +62,6 @@ public class MainActivity extends BaseActivity {
         SDKConfig sdkConfig = new SDKConfig(
                 BuildConfig.SDK_REALM,
                 BuildConfig.SDK_ENVIRONMENT,
-                BuildConfig.SDK_KEY,
                 BuildConfig.SDK_CONFIG_URL,
                 BuildConfig.SDK_API_CLIENT_REFERENCE,
                 BuildConfig.SDK_API_KEY_PHRASE,
