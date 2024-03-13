@@ -17,7 +17,5 @@ p
 @app/src/main/java/com/metaone/metaone_sdk_demo/MainActivity.java,4/2/42df044c186cab4a3abba994d351066a09b01b4d
 q
 Aapp/src/main/java/com/metaone/metaone_sdk_demo/LoginActivity.java,9/6/962651bcdd0e523cdaabb0b164f88c073c1bcfa5
-@
-app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
 w
 Gapp/src/main/java/com/metaone/metaone_sdk_demo/ChangeThemeActivity.java,e/6/e66461d9ff97152716fee364927ee5171281dd41

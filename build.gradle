@@ -16,15 +16,5 @@ allprojects {
         jcenter()
         mavenCentral() // Add this repository if it's not present
         maven { url 'https://www.jitpack.io' }
-        maven {
-             Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream()) // load local.properties
-
-            url properties.getProperty('walletsdk.maven.url')
-            credentials {
-                username = properties.getProperty('walletsdk.maven.username')
-                password = properties.getProperty('walletsdk.maven.password')
-            }
-        }
     }
 }
