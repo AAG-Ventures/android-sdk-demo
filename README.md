@@ -53,7 +53,7 @@ allprojects {
 
 Add the following code to your `app/build.gradle` file:
 ```groovy
-implementation 'io.github.aag-ventures:MetaOneSDK:1.8.2'
+implementation 'io.github.aag-ventures:MetaOneSDK:1.9.3'
 ```
 
 Add mapping to `local.properties` key values to your `app/build.gradle` file:
@@ -67,8 +67,6 @@ Add mapping to `local.properties` key values to your `app/build.gradle` file:
         buildConfigField("String", "SDK_REALM", "\"${properties["sdk.realm"]}\"")
         // M1 SDK environment (dev, test, stage, prod)
         buildConfigField("String", "SDK_ENVIRONMENT", "\"${properties["sdk.environment"]}\"")
-        // Wallet SDK Key (provided by AAG)
-        buildConfigField("String", "SDK_KEY", "\"${properties["sdk.key"]}\"")
         // Client config url
         buildConfigField("String", "SDK_CONFIG_URL", "\"${properties["sdk.config.url"]}\"")
         // Client reference for API (provided by AAG)

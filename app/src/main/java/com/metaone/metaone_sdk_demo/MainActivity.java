@@ -23,8 +23,10 @@ import ventures.aag.metaonesdk.models.SDKConfig;
 import ventures.aag.metaonesdk.models.SessionActivityStatus;
 import ventures.aag.metaonesdk.models.User;
 import ventures.aag.metaonesdk.models.api.UserApiModel;
+import ventures.aag.metaonesdk.models.api.WalletsAPIModel;
 
-public class MainActivity extends BaseActivity {
+
+public class MainActivity extends BaseActivity implements WalletsAPIModel.OnWalletEventListener {
 
     private LinearLayout unauthorizedLayout;
     private Button loginButton;
@@ -40,6 +42,13 @@ public class MainActivity extends BaseActivity {
         addButtonActions();
         initializeSDK();
         setColors();
+        metaOneSDKManager.addWalletCreateListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        metaOneSDKManager.removeWalletCreateListener(this);
     }
 
     protected void setColors() {
@@ -224,5 +233,10 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         onChangeIsAuthorized();
         setColors();
+    }
+
+    @Override
+    public void onWalletCreated(WalletsAPIModel.Wallet wallet) {
+        Log.v("WALLET CREATED", wallet.toString());
     }
 }

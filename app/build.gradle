@@ -10,7 +10,7 @@ android {
         minSdk 25
         targetSdk 33
         versionCode 2
-        versionName "1.2.1"
+        versionName "1.9.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -20,8 +20,6 @@ android {
         buildConfigField("String", "SDK_REALM", "\"${properties["sdk.realm"]}\"")
         // M1 SDK environment (dev, test, stage, prod)
         buildConfigField("String", "SDK_ENVIRONMENT", "\"${properties["sdk.environment"]}\"")
-        // Wallet SDK Key (provided by AAG)
-        buildConfigField("String", "SDK_KEY", "\"${properties["sdk.key"]}\"")
         // Client config url
         buildConfigField("String", "SDK_CONFIG_URL", "\"${properties["sdk.config.url"]}\"")
         // Client reference for API (provided by AAG)
@@ -49,11 +47,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -73,7 +66,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'io.github.aag-ventures:MetaOneSDK:1.8.7'
+    implementation 'io.github.aag-ventures:MetaOneSDK:1.9.3'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
