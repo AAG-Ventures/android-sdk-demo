@@ -78,7 +78,7 @@
                 android:background="@color/background20" />
 
             <TextView
-                android:id="@+id/to_address_header"
+                android:id="@+id/signing_data_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/d6"
@@ -86,7 +86,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/to_address"
+                android:id="@+id/signing_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black10"
@@ -94,35 +94,58 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:minHeight="100dp"
+                android:maxHeight="300dp"
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/personal_note_header"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d6"
-                android:text="Personal Note"
-                android:textColor="@color/black" />
+                android:layout_weight="3"
+                android:layout_marginTop="@dimen/d20"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/personal_note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/black10"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:minHeight="50dp"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/responseLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Response:"
+                    android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/sign_custom_transaction"
+                <EditText
+                    android:id="@+id/responseBody"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/d6"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/black10"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d50"
-                android:layout_marginBottom="@dimen/d32"
-                android:enabled="false"
-                android:text="Sign" />
+                android:layout_marginBottom="@dimen/d32">
+
+                <Button
+                    android:id="@+id/sign_custom_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="Sign" />
+
+                <ProgressBar
+                    android:id="@+id/loadingIndicator"
+                    android:layout_width="@dimen/d32"
+                    android:layout_height="@dimen/d32"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>

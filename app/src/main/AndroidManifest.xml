@@ -41,6 +41,12 @@
             android:name=".ChangeThemeActivity"
             android:exported="true" />
         <activity
+            android:name=".SignCustomMessageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignCustomTransactionActivity"
+            android:exported="true" />
+        <activity
             android:name=".SignCurrencySendTransactionActivity"
             android:exported="true" />
     </application>

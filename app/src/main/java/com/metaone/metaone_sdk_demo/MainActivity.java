@@ -121,6 +121,13 @@ public class MainActivity extends BaseActivity implements WalletsAPIModel.OnWall
         });
     }
 
+    private Boolean isSignatureSet () {
+      Boolean isSet =  metaOneSDKManager.isSignatureSet();
+      if(!isSet){
+          Toast.makeText(getApplicationContext(), "Please create your signature", Toast.LENGTH_LONG).show();
+      }
+      return isSet;
+    }
     private void addButtonActions() {
         authorizedLayout = findViewById(R.id.authorized_layout);
         loginButton = findViewById(R.id.login_button);
@@ -141,16 +148,20 @@ public class MainActivity extends BaseActivity implements WalletsAPIModel.OnWall
             }
 
         });
-        Button customTxButton = findViewById(R.id.send_custom_tx_btn);
-        customTxButton.setOnClickListener(v -> {
+        Button customSendTxButton = findViewById(R.id.send_custom_tx_btn);
+        customSendTxButton.setOnClickListener(v -> {
             if (metaOneSDKManager.isSignatureSet()) {
                 Intent intent = new Intent(MainActivity.this, SignCurrencySendTransactionActivity.class);
                 startActivity(intent);
-            } else {
-                Toast.makeText(getApplicationContext(), "Please create your signature", Toast.LENGTH_LONG).show();
             }
         });
-
+        Button customSignTxButton = findViewById(R.id.sign_custom_tx_btn);
+        customSignTxButton.setOnClickListener(v -> {
+            if (metaOneSDKManager.isSignatureSet()) {
+                Intent intent = new Intent(MainActivity.this, SignCustomTransactionActivity.class);
+                startActivity(intent);
+            }
+        });
         Button apiTestButton = findViewById(R.id.api_testing_btn);
         apiTestButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ApiTestingActivity.class);
